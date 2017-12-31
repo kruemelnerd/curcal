@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">CurCal</string>
+
+
+    <string name="error_message_operator_not_found">No Operator found. Please check.</string>
+    <string name="error_message_divide_by_zero">Can\'t be divided by Zero.</string>
+
+    <string name="operator_character_add">+</string>
+    <string name="operator_character_minus">-</string>
+    <string name="operator_character_divide">/</string>
+    <string name="operator_character_multipy">*</string>
+
+
+    <string name="keypad_number_zero">0</string>
+    <string name="keypad_number_one">1</string>
+    <string name="keypad_number_two">2</string>
+    <string name="keypad_number_three">3</string>
+    <string name="keypad_number_four">4</string>
+    <string name="keypad_number_five">5</string>
+    <string name="keypad_number_six">6</string>
+    <string name="keypad_number_seven">7</string>
+    <string name="keypad_number_eight">8</string>
+    <string name="keypad_number_nine">9</string>
+
+    <string name="keypad_operation_divide">/</string>
+    <string name="keypad_operation_multiply">*</string>
+    <string name="keypad_operation_minus">-</string>
+    <string name="keypad_operation_add">+</string>
+    <string name="keypad_operation_equals">=</string>
+    <string name="keypad_operation_dot">.</string>
+
+    <string name="keypad_special_action_clear">clear</string>
+    <string name="keypad_special_action_copy"></string>
+    <string name="keypad_special_action_paste"></string>
+    <string name="keypad_special_action_back">&lt;-</string>
+    <string name="keypad_special_action_bracket">( )</string> <!-- ( ) -->
+    <string name="keypad_special_action_percent">%</string> <!-- % -->
+
+</resources>

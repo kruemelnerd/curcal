@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/numberpad_area"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <!-- TODO: CLEAR COPY PASTE -->
+
+    <!--         android:text="@string/keypad_special_action_clear" -->
+
+    <ImageButton
+        android:id="@+id/buttonKeypadActionClear"
+        style="@style/styleKeypadFirstRow"
+        android:src="@drawable/ic_refresh_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonKeypadBack"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadActionCopy"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--TODO: Zeichen für Wurzel finden und beim Text austauschen -->
+    <Button
+        android:id="@+id/buttonKeypadActionCopy"
+        style="@style/styleKeypadFirstRow"
+        android:text="@string/keypad_special_action_copy"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadActionClear"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadActionClear"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadActionPaste"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadActionClear" />
+
+
+    <Button
+        android:id="@+id/buttonKeypadActionPaste"
+        style="@style/styleKeypadFirstRow"
+        android:text="@string/keypad_special_action_paste"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadActionCopy"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadActionCopy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadActionCopy" />
+
+
+
+    <!-- COMPLETE: Back () % / -->
+    <!-- TODO: Besseres Zeichen für Back finden -->
+    <ImageButton
+        android:id="@+id/buttonKeypadBack"
+        style="@style/styleKeypadSecondRow"
+        android:src="@drawable/ic_keyboard_backspace_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonKeypadNumber7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadBracket"
+        app:layout_constraintTop_toBottomOf="@id/buttonKeypadActionClear" />
+
+    <!--TODO: Zeichen für Wurzel finden und beim Text austauschen -->
+    <Button
+        android:id="@+id/buttonKeypadBracket"
+        style="@style/styleKeypadSecondRow"
+        android:text="@string/keypad_special_action_bracket"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadBack"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadBack"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadPercent"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadBack" />
+
+    <Button
+        android:id="@+id/buttonKeypadPercent"
+        style="@style/styleKeypadSecondRow"
+        android:text="@string/keypad_special_action_percent"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadBracket"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadBracket"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadActionDivide"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadBracket" />
+
+    <Button
+        android:id="@+id/buttonKeypadActionDivide"
+        style="@style/styleKeypadSecondRow"
+        android:text="@string/keypad_operation_divide"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadPercent"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadPercent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadPercent" />
+
+
+
+
+
+    <!-- Numbers 7 to 9 -->
+    <Button
+        android:id="@+id/buttonKeypadNumber7"
+        style="@style/styleKeypadThirdRow"
+        android:text="@string/keypad_number_seven"
+        app:layout_constraintBottom_toTopOf="@+id/buttonKeypadNumber4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumber8"
+        app:layout_constraintTop_toBottomOf="@id/buttonKeypadBack" />
+
+    <Button
+        android:id="@+id/buttonKeypadNumber8"
+        style="@style/styleKeypadThirdRow"
+        android:text="@string/keypad_number_eight"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber7"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber7"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumber9"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber7" />
+
+    <Button
+        android:id="@+id/buttonKeypadNumber9"
+        style="@style/styleKeypadThirdRow"
+        android:text="@string/keypad_number_nine"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber8"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber8"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadActionMulti"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber8" />
+
+    <Button
+        android:id="@+id/buttonKeypadActionMulti"
+        style="@style/styleKeypadThirdRow"
+        android:text="@string/keypad_operation_multiply"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber9"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber9" />
+
+
+
+    <!-- Numbers 4 to 6 -->
+    <Button
+        android:id="@+id/buttonKeypadNumber4"
+        style="@style/styleKeypadFourthRow"
+        android:text="@string/keypad_number_four"
+        app:layout_constraintBottom_toTopOf="@+id/buttonKeypadNumber1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumber5"
+        app:layout_constraintTop_toBottomOf="@id/buttonKeypadNumber7" />
+
+    <Button
+        android:id="@+id/buttonKeypadNumber5"
+        style="@style/styleKeypadFourthRow"
+        android:text="@string/keypad_number_five"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber4"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber4"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumber6"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber4" />
+
+    <Button
+        android:id="@+id/buttonKeypadNumber6"
+        style="@style/styleKeypadFourthRow"
+        android:text="@string/keypad_number_six"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber4"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber5"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadActionMinus"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber4" />
+
+
+    <Button
+        android:id="@+id/buttonKeypadActionMinus"
+        style="@style/styleKeypadFourthRow"
+        android:text="@string/keypad_operation_minus"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber6"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber6" />
+
+    <!-- Numbers 1 to 3 -->
+    <Button
+        android:id="@+id/buttonKeypadNumber1"
+        style="@style/styleKeypadFivedRow"
+        android:text="@string/keypad_number_one"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonKeypadNumber0"
+        app:layout_constraintLeft_toLeftOf="@id/buttonKeypadNumber4"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumber2"
+        app:layout_constraintTop_toBottomOf="@id/buttonKeypadNumber4" />
+
+    <Button
+        android:id="@+id/buttonKeypadNumber2"
+        style="@style/styleKeypadFivedRow"
+        android:text="@string/keypad_number_two"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber1"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber1"
+        app:layout_constraintRight_toLeftOf="@id/buttonKeypadNumber3"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber1" />
+
+    <Button
+        android:id="@+id/buttonKeypadNumber3"
+        style="@style/styleKeypadFivedRow"
+        android:text="@string/keypad_number_three"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber1"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber2"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadActionPlus"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber1" />
+
+    <Button
+        android:id="@+id/buttonKeypadActionPlus"
+        style="@style/styleKeypadFivedRow"
+        android:text="@string/keypad_operation_add"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber3"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber3" />
+
+
+    <!-- TODO: 0 . = + -->
+
+
+    <Button
+        android:id="@+id/buttonKeypadNumber0"
+        style="@style/styleKeypadSixedRow"
+        android:text="@string/keypad_number_zero"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/buttonKeypadNumber1"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumberPoint"
+        app:layout_constraintTop_toBottomOf="@id/buttonKeypadNumber1" />
+
+    <Button
+        android:id="@+id/buttonKeypadNumberPoint"
+        style="@style/styleKeypadSixedRow"
+        android:text="@string/keypad_operation_dot"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber0"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumber0"
+        app:layout_constraintRight_toLeftOf="@id/buttonKeypadActionEquals"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber0" />
+
+    <Button
+        android:id="@+id/buttonKeypadActionEquals"
+        style="@style/styleKeypadSixedRow"
+        android:text="@string/keypad_operation_equals"
+        app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber0"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumberPoint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber0" />
+
+
+</android.support.constraint.ConstraintLayout>
