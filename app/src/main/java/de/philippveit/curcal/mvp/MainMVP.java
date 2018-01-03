@@ -33,6 +33,7 @@ public interface MainMVP {
         void addNumber(int number);
         void removeLastNumber();
         void pressedOperator(MainPresentor.Operations operator);
+        void handleDecimalMark();
     }
 
 

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
     private ImageButton mButtonClear;
     private ImageButton mButtonBack;
     private Button mButtonBracket;
+    private Button mButtonPercent;
 
     private Button mButtonOperationsAdd;
     private Button mButtonOperationsMinus;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
     private Button mButtonOperationsMultiply;
     private Button mButtonOperationsEquals;
 
+    private Button mButtonDecimalMark;
     private Button mButtonNumberZero;
     private Button mButtonNumberOne;
     private Button mButtonNumberTwo;
@@ -109,10 +111,10 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
 
     @Override
     public void clearTextEverywhere() {
-        setFirstTextLine("");
-        setSecondTextLine("");
-        setThirdTextLine("");
-        setMainTextLine("0");
+        setFirstTextLine(new String());
+        setSecondTextLine(new String());
+        setThirdTextLine(new String());
+        setMainTextLine(new String("0"));
         mPresenter.clearAllNumbers();
     }
 
@@ -150,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
         mButtonClear = (ImageButton) findViewById(R.id.buttonKeypadActionClear);
         mButtonBack = (ImageButton) findViewById(R.id.buttonKeypadBack);
         mButtonBracket = (Button) findViewById(R.id.buttonKeypadBracket);
+        mButtonPercent = (Button) findViewById(R.id.buttonKeypadPercent);
 
         // Operations
         mButtonOperationsAdd = (Button) findViewById(R.id.buttonKeypadActionPlus);
@@ -159,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
         mButtonOperationsEquals = (Button) findViewById(R.id.buttonKeypadActionEquals);
 
         // Handling the numbers
+        mButtonDecimalMark = (Button) findViewById(R.id.buttonKeypadNumberDecimalMark);
         mButtonNumberZero = (Button) findViewById(R.id.buttonKeypadNumber0);
         mButtonNumberOne = (Button) findViewById(R.id.buttonKeypadNumber1);
         mButtonNumberTwo = (Button) findViewById(R.id.buttonKeypadNumber2);
@@ -212,6 +216,12 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
         });
 
         // Numbers
+        mButtonDecimalMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonDecimalMark();
+            }
+        });
 
         mButtonClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +233,18 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
             @Override
             public void onClick(View v) {
                 handleButtonBack();
+            }
+        });
+        mButtonBracket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonBracket();
+            }
+        });
+        mButtonPercent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleButtonPercent();
             }
         });
 
@@ -287,6 +309,20 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
             }
         });
     }
+
+    private void handleButtonDecimalMark() {
+        showDebugMessage("Operation DecimalMark");
+        mPresenter.handleDecimalMark();
+    }
+
+    private void handleButtonBracket() {
+        showErrorMessage("Not yet implemented.");
+    }
+
+    private void handleButtonPercent() {
+        showErrorMessage("Not yet implemented.");
+    }
+
 
     private void handleButtonBack() {
         showDebugMessage("Operation Back");

@@ -2,6 +2,8 @@ package de.philippveit.curcal.mvp;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import de.philippveit.curcal.R;
 
@@ -17,10 +19,13 @@ public class MainPresentor implements MainMVP.PresenterOps {
 
     private WeakReference<MainMVP.RequieredViewOps> mView;
 
-    BigDecimal  firstNumber;
-    BigDecimal secondNumber;
-    boolean isSecondNumberSet = false;
-    Operations operator = null;
+    private BigDecimal  firstNumber;
+    private BigDecimal secondNumber;
+    private boolean isSecondNumberSet = false;
+    private boolean isDecimalMarkSet = false;
+    private Operations operator = null;
+
+    private MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
 
     public MainPresentor(MainMVP.RequieredViewOps mView) {
         this.mView = new WeakReference<MainMVP.RequieredViewOps>(mView);
@@ -37,25 +42,56 @@ public class MainPresentor implements MainMVP.PresenterOps {
     @Override
     public void addNumber(int number) {
         if(operator == null){
-            firstNumber = firstNumber.multiply(BigDecimal.TEN);
-            firstNumber = firstNumber.add(new BigDecimal(number));
+            if(isDecimalMarkSet){
+                firstNumber = addDecimalDigitToTheEnd(firstNumber, new BigDecimal(number));
+            }else {
+                firstNumber = addDigitToTheEnd(firstNumber, new BigDecimal(number));
+            }
             mView.get().setMainTextLine(String.valueOf(firstNumber));
         }else {
             isSecondNumberSet = true;
-            secondNumber = secondNumber.multiply(BigDecimal.TEN);
-            secondNumber = secondNumber.add(new BigDecimal(number));
+            if(isDecimalMarkSet){
+                secondNumber = addDecimalDigitToTheEnd(secondNumber, new BigDecimal(number));
+            }else {
+                secondNumber = addDigitToTheEnd(secondNumber, new BigDecimal(number));
+            }
             mView.get().setMainTextLine(getMainLine());
         }
+    }
 
+    /**
+     * adds another decimal digit to the number.
+     *
+     * @param number original Number
+     * @param addDigit number which will be added as a decimal Number
+     * @return
+     */
+    public BigDecimal addDecimalDigitToTheEnd(BigDecimal number, BigDecimal addDigit){
+        int scale = number.scale();
+        BigDecimal divideBy = TEN;
+        if(scale != 0) {
+            if(ZERO.equals(addDigit)){
+                return number.setScale(scale + 1);
+            }else {
+                for (int i = 0; i < scale; i++) {
+                    divideBy = TEN.multiply(divideBy);
+                }
+            }
+        }
+        addDigit = addDigit.divide(divideBy);
+        return number.add(addDigit);
+    }
+
+    public BigDecimal addDigitToTheEnd(BigDecimal number, BigDecimal addDigit){
+        return number.multiply(TEN).add(addDigit);
     }
 
     @Override
     public void removeLastNumber() {
-        if(operator == null){
+        if(!isSecondNumberSet){
             firstNumber = removeLastNumberWithDecimals(firstNumber);
             mView.get().setMainTextLine(getMainLine());
         }else {
-            isSecondNumberSet = true;
             firstNumber = removeLastNumberWithDecimals(firstNumber);
             mView.get().setMainTextLine(getMainLine());
         }
@@ -68,8 +104,8 @@ public class MainPresentor implements MainMVP.PresenterOps {
             return number.setScale(number.scale()-1, BigDecimal.ROUND_DOWN);
         }else{
             BigDecimal overhang =  number.remainder(TEN);
-            number = number.subtract(overhang);
-            number = number.divide(TEN);
+            number = number.subtract(overhang, mc);
+            number = number.divide(TEN, mc);
             return number;
         }
 
@@ -97,6 +133,14 @@ public class MainPresentor implements MainMVP.PresenterOps {
             default:
                 break;
         }
+        isDecimalMarkSet = false;
+    }
+
+    @Override
+    public void handleDecimalMark() {
+            isDecimalMarkSet = true;
+
+            mView.get().setMainTextLine(getMainLine() + ".");
     }
 
     private void handleCompleteCalc(){
@@ -107,20 +151,20 @@ public class MainPresentor implements MainMVP.PresenterOps {
 
         switch (operator){
             case ADD:
-                mainLine = firstNumber.add(secondNumber);
+                mainLine = firstNumber.add(secondNumber, mc);
                 break;
             case MINUS:
-                mainLine = firstNumber.subtract(secondNumber);
+                mainLine = firstNumber.subtract(secondNumber, mc);
                 break;
             case MULTIPLY:
-                mainLine = firstNumber.multiply(secondNumber);
+                mainLine = firstNumber.multiply(secondNumber, mc);
                 break;
             case DIVIDE:
                 if(secondNumber.intValue() == 0){
                     mView.get().showErrorMessage(mView.get().getContext().getString(R.string.error_message_divide_by_zero));
                     return;
                 }
-                mainLine = firstNumber.divide(secondNumber);
+                mainLine = firstNumber.divide(secondNumber, mc);
                 break;
             default:
                 return;
@@ -158,6 +202,7 @@ public class MainPresentor implements MainMVP.PresenterOps {
             if(isSecondNumberSet){
                 line.append(secondNumber);
             }
+
         }
         return line.toString();
     }

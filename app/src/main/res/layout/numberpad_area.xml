@@ -207,11 +207,11 @@
         android:text="@string/keypad_number_zero"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/buttonKeypadNumber1"
-        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumberPoint"
+        app:layout_constraintRight_toLeftOf="@+id/buttonKeypadNumberDecimalMark"
         app:layout_constraintTop_toBottomOf="@id/buttonKeypadNumber1" />
 
     <Button
-        android:id="@+id/buttonKeypadNumberPoint"
+        android:id="@+id/buttonKeypadNumberDecimalMark"
         style="@style/styleKeypadSixedRow"
         android:text="@string/keypad_operation_dot"
         app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber0"
@@ -224,7 +224,7 @@
         style="@style/styleKeypadSixedRow"
         android:text="@string/keypad_operation_equals"
         app:layout_constraintBottom_toBottomOf="@id/buttonKeypadNumber0"
-        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumberPoint"
+        app:layout_constraintLeft_toRightOf="@id/buttonKeypadNumberDecimalMark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/buttonKeypadNumber0" />
 
