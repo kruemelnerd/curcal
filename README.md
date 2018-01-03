@@ -9,3 +9,6 @@ Features for later:
 - Get the currecy rate every day from a rest api
 - Use brackets
 - Use percent.
+
+### Demo
+![usageCurCal](https://github.com/kruemelnerd/curcal/blob/master/usageCurCal.gif)
