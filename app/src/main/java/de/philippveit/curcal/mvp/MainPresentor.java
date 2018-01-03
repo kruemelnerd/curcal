@@ -42,7 +42,8 @@ public class MainPresentor implements MainMVP.PresenterOps {
     @Override
     public void addNumber(int number) {
         if(operator == null){
-            if(isDecimalMarkSet){
+            if(isDecimalMarkSet || firstNumber.scale() != 0){
+                isDecimalMarkSet = true;
                 firstNumber = addDecimalDigitToTheEnd(firstNumber, new BigDecimal(number));
             }else {
                 firstNumber = addDigitToTheEnd(firstNumber, new BigDecimal(number));
@@ -50,7 +51,8 @@ public class MainPresentor implements MainMVP.PresenterOps {
             mView.get().setMainTextLine(String.valueOf(firstNumber));
         }else {
             isSecondNumberSet = true;
-            if(isDecimalMarkSet){
+            if(isDecimalMarkSet || secondNumber.scale() != 0){
+                isDecimalMarkSet = true;
                 secondNumber = addDecimalDigitToTheEnd(secondNumber, new BigDecimal(number));
             }else {
                 secondNumber = addDigitToTheEnd(secondNumber, new BigDecimal(number));
