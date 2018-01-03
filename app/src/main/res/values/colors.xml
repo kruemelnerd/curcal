@@ -4,10 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorKeypadFirstRow">#4c6371</color>
-    <color name="colorKeypadSecondRow">#57a3b1</color>
-    <color name="colorKeypadThirdRow">#b0d794</color>
-    <color name="colorKeypadFourthRow">#fade8a</color>
-    <color name="colorKeypadFivedRow">#fa5456</color>
-    <color name="colorKeypadSixedRow">#57a3b1</color>
+    <color name="colorKeypadFirstRow">#708694</color> <!--#4c6371 -->
+    <color name="colorKeypadSecondRow">#47a4b4</color> <!-- #57a3b1 -->
+    <color name="colorKeypadThirdRow">#e7bf4c</color> <!-- #4c6371 -->
+    <color name="colorKeypadFourthRow">#779760</color> <!-- #b0d794 -->
+    <color name="colorKeypadFivedRow">#5fafbe</color> <!-- #57a3b1 -->
+    <color name="colorKeypadSixedRow">#ec5052</color> <!-- #fa5456 -->
 </resources>
