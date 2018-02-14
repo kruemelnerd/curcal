@@ -144,7 +144,7 @@ public class MainPresentor implements MainMVP.PresenterOps {
     public void handleDecimalMark() {
             isDecimalMarkSet = true;
 
-            mView.get().setMainTextLine(getMainLine() + ".");
+            mView.get().setMainTextLine(getMainLine());
     }
 
     private void handleCompleteCalc(){
@@ -183,6 +183,9 @@ public class MainPresentor implements MainMVP.PresenterOps {
 
     private String getMainLine(){
         StringBuffer line = new StringBuffer().append(firstNumber);
+        if(!isSecondNumberSet && isDecimalMarkSet && firstNumber.scale() == 0){
+            line.append(".");
+        }
         if(operator != null){
             String operatorSign;
             switch (operator){
@@ -205,6 +208,9 @@ public class MainPresentor implements MainMVP.PresenterOps {
             line.append(operatorSign);
             if(isSecondNumberSet){
                 line.append(secondNumber);
+                if(isDecimalMarkSet && secondNumber.scale() == 0){
+                    line.append(".");
+                }
             }
 
         }

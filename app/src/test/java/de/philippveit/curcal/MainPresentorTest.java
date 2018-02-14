@@ -12,6 +12,8 @@ import de.philippveit.curcal.mvp.MainMVP;
 import de.philippveit.curcal.mvp.MainPresentor;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,7 +34,6 @@ public class MainPresentorTest {
 
     @Test
     public void clearAllNumbersTest() throws Exception {
-        mPresenter.clearAllNumbers();
         verify(mMockMainView).clearTextEverywhere();
     }
 
@@ -131,7 +132,7 @@ public class MainPresentorTest {
         assertTrue("523423".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal(5234234)).toPlainString()));
         assertTrue("0".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal(0)).toPlainString()));
 
-        assertTrue("0.".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("0.1")).toPlainString()));
+        assertTrue("0".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("0.1")).toPlainString()));
         assertTrue("0.1".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("0.11")).toPlainString()));
         assertTrue("123.456".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("123.4567")).toPlainString()));
         assertTrue("123.45678".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("123.456789")).toPlainString()));
@@ -168,7 +169,46 @@ public class MainPresentorTest {
     }
 
     @Test
-    public void removeLastNumberTest(){
+    public void removeLastDigitTest(){
+        mPresenter.addNumber(5);
+        mPresenter.addNumber(6);
+        mPresenter.addNumber(7);
+        verify(mMockMainView).setMainTextLine("567");
+        mPresenter.addNumber(8); //5678
+        verify(mMockMainView).setMainTextLine("5678");
+
+        mPresenter.removeLastDigit(); //567
+        verify(mMockMainView, times(2)).setMainTextLine("567");
+
+        mPresenter.addNumber(9); //5679
+        verify(mMockMainView).setMainTextLine("5679");
+
+        mPresenter.handleDecimalMark();
+        verify(mMockMainView).setMainTextLine("5679.");
+
+        mPresenter.addNumber(3); //5679.3
+        verify(mMockMainView).setMainTextLine("5679.3");
+
+        mPresenter.removeLastDigit(); //5679.
+        verify(mMockMainView, times(2)).setMainTextLine("5679.");
+
+        mPresenter.removeLastDigit(); //actually is: 567.
+        verify(mMockMainView, times(1)).setMainTextLine("5679");
+
+        mPresenter.removeLastDigit(); //actually is: 56.
+        verify(mMockMainView, times(2)).setMainTextLine("567");
+
+        mPresenter.removeLastDigit(); //actually is: 5.
+        verify(mMockMainView, atLeastOnce()).setMainTextLine("56");
+
+        mPresenter.removeLastDigit(); //actually is: 0.
+        verify(mMockMainView, atLeastOnce()).setMainTextLine("5");
+
+        mPresenter.removeLastDigit();  //actually is: 0.
+        verify(mMockMainView, atLeastOnce()).setMainTextLine("0");
+
+
+
 
     }
 }
