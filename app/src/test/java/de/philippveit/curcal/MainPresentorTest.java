@@ -11,15 +11,8 @@ import java.math.BigDecimal;
 import de.philippveit.curcal.mvp.MainMVP;
 import de.philippveit.curcal.mvp.MainPresentor;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MainPresentorTest {
@@ -34,6 +27,7 @@ public class MainPresentorTest {
     @Before
     public void setUp() throws Exception {
         mPresenter = new MainPresentor(mMockMainView);
+        mPresenter.clearAllNumbers();
     }
 
     @Test
@@ -98,7 +92,6 @@ public class MainPresentorTest {
 
     @Test
     public void addNumber_decimalNumberTest() throws Exception {
-        mPresenter.clearAllNumbers();
 
         mPresenter.addNumber(1);
         verify(mMockMainView).setMainTextLine("1");
@@ -127,27 +120,21 @@ public class MainPresentorTest {
         verify(mMockMainView).setMainTextLine("1.2345678900");
         mPresenter.addNumber(1);
         verify(mMockMainView).setMainTextLine("1.23456789001");
-
-
-
-
-
     }
 
 
     @Test
-    public void removeLastNumberWithDecimalsTest(){
+    public void removeLastDigitWithDecimalsTest(){
+        assertTrue("1".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal(12)).toPlainString()));
+        assertTrue("0".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal(1)).toPlainString()));
+        assertTrue("123".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal(1234)).toPlainString()));
+        assertTrue("523423".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal(5234234)).toPlainString()));
+        assertTrue("0".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal(0)).toPlainString()));
 
-        assertTrue("1".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal(12)).toPlainString()));
-        assertTrue("0".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal(1)).toPlainString()));
-        assertTrue("123".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal(1234)).toPlainString()));
-        assertTrue("523423".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal(5234234)).toPlainString()));
-        assertTrue("0".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal(0)).toPlainString()));
-
-        assertTrue("0".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal("0.1")).toPlainString()));
-        assertTrue("0.1".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal("0.11")).toPlainString()));
-        assertTrue("123.456".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal("123.4567")).toPlainString()));
-        assertTrue("123.45678".equals(mPresenter.removeLastNumberWithDecimals(new BigDecimal("123.456789")).toPlainString()));
+        assertTrue("0.".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("0.1")).toPlainString()));
+        assertTrue("0.1".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("0.11")).toPlainString()));
+        assertTrue("123.456".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("123.4567")).toPlainString()));
+        assertTrue("123.45678".equals(mPresenter.removeLastDigitWithDecimals(new BigDecimal("123.456789")).toPlainString()));
     }
 
     @Test
@@ -178,5 +165,10 @@ public class MainPresentorTest {
         assertTrue(new BigDecimal("141123.7897").equals(mPresenter.addDecimalDigitToTheEnd(new BigDecimal("141123.789"), new BigDecimal("7"))));
         assertTrue(new BigDecimal("141123.7898").equals(mPresenter.addDecimalDigitToTheEnd(new BigDecimal("141123.789"), new BigDecimal("8"))));
         assertTrue(new BigDecimal("141123.7899").equals(mPresenter.addDecimalDigitToTheEnd(new BigDecimal("141123.789"), new BigDecimal("9"))));
+    }
+
+    @Test
+    public void removeLastNumberTest(){
+
     }
 }

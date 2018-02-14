@@ -91,17 +91,17 @@ public class MainPresentor implements MainMVP.PresenterOps {
     }
 
     @Override
-    public void removeLastNumber() {
+    public void removeLastDigit() {
         if(!isSecondNumberSet){
-            firstNumber = removeLastNumberWithDecimals(firstNumber);
+            firstNumber = removeLastDigitWithDecimals(firstNumber);
             mView.get().setMainTextLine(getMainLine());
         }else {
-            firstNumber = removeLastNumberWithDecimals(firstNumber);
+            firstNumber = removeLastDigitWithDecimals(firstNumber);
             mView.get().setMainTextLine(getMainLine());
         }
     }
 
-    public BigDecimal removeLastNumberWithDecimals(BigDecimal number){
+    public BigDecimal removeLastDigitWithDecimals(BigDecimal number){
 
         //Check if Number has decimal
         if(ZERO.compareTo(number.remainder(ONE)) != 0){

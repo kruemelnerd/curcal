@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
 
     private void handleButtonBack() {
         showDebugMessage("Operation Back");
-        mPresenter.removeLastNumber();
+        mPresenter.removeLastDigit();
     }
 
     private void handleButtonOperationsEquals() {

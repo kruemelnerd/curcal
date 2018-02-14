@@ -31,7 +31,7 @@ public interface MainMVP {
     interface PresenterOps {
         void clearAllNumbers();
         void addNumber(int number);
-        void removeLastNumber();
+        void removeLastDigit();
         void pressedOperator(MainPresentor.Operations operator);
         void handleDecimalMark();
     }
