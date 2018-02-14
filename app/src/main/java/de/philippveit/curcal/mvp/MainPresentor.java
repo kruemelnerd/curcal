@@ -93,10 +93,18 @@ public class MainPresentor implements MainMVP.PresenterOps {
     @Override
     public void removeLastDigit() {
         if(!isSecondNumberSet){
-            firstNumber = removeLastDigitWithDecimals(firstNumber);
+            if(firstNumber.scale() == 0 && isDecimalMarkSet){
+                isDecimalMarkSet = false;
+            }else {
+                firstNumber = removeLastDigitWithDecimals(firstNumber);
+            }
             mView.get().setMainTextLine(getMainLine());
         }else {
-            firstNumber = removeLastDigitWithDecimals(firstNumber);
+            if(secondNumber.scale() == 0 && isDecimalMarkSet){
+                isDecimalMarkSet = false;
+            }else {
+                secondNumber = removeLastDigitWithDecimals(secondNumber);
+            }
             mView.get().setMainTextLine(getMainLine());
         }
     }
