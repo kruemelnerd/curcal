@@ -3,17 +3,18 @@ package de.philippveit.curcal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 
-import de.philippveit.curcal.mvp.MainMVP;
+import de.philippveit.curcal.mvp.MainMVP.RequieredViewOps;
 import de.philippveit.curcal.mvp.MainPresentor;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,13 +23,15 @@ public class MainPresentorTest {
 
 
     @Mock
-    private MainMVP.RequieredViewOps mMockMainView;
+    private RequieredViewOps mMockMainView;
 
     private MainPresentor mPresenter;
 
     @Before
     public void setUp() throws Exception {
+
         mPresenter = new MainPresentor(mMockMainView);
+
         mPresenter.clearAllNumbers();
     }
 
@@ -170,42 +173,65 @@ public class MainPresentorTest {
 
     @Test
     public void removeLastDigitTest(){
+
+
+
+
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+
         mPresenter.addNumber(5);
         mPresenter.addNumber(6);
         mPresenter.addNumber(7);
-        verify(mMockMainView).setMainTextLine("567");
+
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("567", captor.getValue());
+
         mPresenter.addNumber(8); //5678
-        verify(mMockMainView).setMainTextLine("5678");
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("5678", captor.getValue());
 
         mPresenter.removeLastDigit(); //567
-        verify(mMockMainView, times(2)).setMainTextLine("567");
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("567", captor.getValue());
+
 
         mPresenter.addNumber(9); //5679
-        verify(mMockMainView).setMainTextLine("5679");
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("5679", captor.getValue());
 
         mPresenter.handleDecimalMark();
-        verify(mMockMainView).setMainTextLine("5679.");
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("5679.", captor.getValue());
 
         mPresenter.addNumber(3); //5679.3
-        verify(mMockMainView).setMainTextLine("5679.3");
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("5679.3", captor.getValue());
 
         mPresenter.removeLastDigit(); //5679.
-        verify(mMockMainView, times(2)).setMainTextLine("5679.");
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("5679.", captor.getValue());
 
-        mPresenter.removeLastDigit(); //actually is: 567.
-        verify(mMockMainView, times(1)).setMainTextLine("5679");
+        mPresenter.removeLastDigit();
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("5679", captor.getValue()); //but is at the momement: 567.
 
-        mPresenter.removeLastDigit(); //actually is: 56.
-        verify(mMockMainView, times(2)).setMainTextLine("567");
+        mPresenter.removeLastDigit();
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("567", captor.getValue()); //but is at the momement: 56.
 
-        mPresenter.removeLastDigit(); //actually is: 5.
-        verify(mMockMainView, atLeastOnce()).setMainTextLine("56");
+        mPresenter.removeLastDigit();
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("56", captor.getValue()); //but is at the momement: 5.
 
-        mPresenter.removeLastDigit(); //actually is: 0.
-        verify(mMockMainView, atLeastOnce()).setMainTextLine("5");
+        mPresenter.removeLastDigit();
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("5", captor.getValue()); //but is at the momement: 0.
 
-        mPresenter.removeLastDigit();  //actually is: 0.
-        verify(mMockMainView, atLeastOnce()).setMainTextLine("0");
+        mPresenter.removeLastDigit();
+        verify(mMockMainView, atLeastOnce()).setMainTextLine(captor.capture());
+        assertEquals("0", captor.getValue()); //but is at the momement: 0.
+
 
 
 
