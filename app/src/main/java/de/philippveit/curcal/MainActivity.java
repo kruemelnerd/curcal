@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
         initButtons();
         createClickListenersForAllButtons();
 
-        clearTextEverywhere();
+        mPresenter.clearAllNumbers();
     }
 
     @Override
@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
         setSecondTextLine(new String());
         setThirdTextLine(new String());
         setMainTextLine(new String("0"));
-        mPresenter.clearAllNumbers();
     }
 
     @Override
@@ -356,7 +355,6 @@ public class MainActivity extends AppCompatActivity implements MainMVP.Requiered
 
     private void handleButtonClear() {
         showDebugMessage("clear");
-        clearTextEverywhere();
         mPresenter.clearAllNumbers();
     }
 

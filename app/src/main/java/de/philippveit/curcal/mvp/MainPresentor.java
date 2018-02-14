@@ -36,7 +36,9 @@ public class MainPresentor implements MainMVP.PresenterOps {
         firstNumber = ZERO;
         secondNumber = ZERO;
         isSecondNumberSet = false;
+        isDecimalMarkSet = false;
         operator = null;
+        mView.get().clearTextEverywhere();
     }
 
     @Override
@@ -71,7 +73,7 @@ public class MainPresentor implements MainMVP.PresenterOps {
     public BigDecimal addDecimalDigitToTheEnd(BigDecimal number, BigDecimal addDigit){
         int scale = number.scale();
         BigDecimal divideBy = TEN;
-        if(scale != 0) {
+        //if(scale != 0) {
             if(ZERO.equals(addDigit)){
                 return number.setScale(scale + 1);
             }else {
@@ -79,7 +81,7 @@ public class MainPresentor implements MainMVP.PresenterOps {
                     divideBy = TEN.multiply(divideBy);
                 }
             }
-        }
+        //}
         addDigit = addDigit.divide(divideBy);
         return number.add(addDigit);
     }
